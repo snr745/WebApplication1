@@ -9,11 +9,13 @@ using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 using WebApplication1.Models;
+using System.Web.Http.Cors;
 
 namespace WebApplication1.Controllers
 {
     public class DepartMentController:ApiController
     {
+
         public HttpResponseMessage Get()
         {
             string query = "select DepartmentId,DepartmentName from dbo.Department";
@@ -32,7 +34,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                string query = @"insert into dbo.Department value
+                string query = @"insert into dbo.Department values
 ('" + dep.DepartMentName + @"')
 ";
                 DataTable table = new DataTable();
@@ -91,6 +93,21 @@ namespace WebApplication1.Controllers
             {
                 return "Delete  Failed!!!";
             }
+        }
+
+        [Route("api/Department/GetAllDepartment")]
+        public HttpResponseMessage GetAllDepartment()
+        {
+            string query = "select DepartmentName from dbo.Department";
+            DataTable table = new DataTable();
+            using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
+            using (var cmd = new SqlCommand(query, con))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                da.Fill(table);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, table);
         }
     }
 }

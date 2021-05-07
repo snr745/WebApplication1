@@ -14,7 +14,7 @@ namespace WebApplication1
             // Web API configuration and services
 
             // Web API routes
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -23,6 +23,7 @@ namespace WebApplication1
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
         }
     }
 }

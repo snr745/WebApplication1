@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -91,6 +92,7 @@ namespace WebApplication1.Controllers
                 return "Save FIle Failed";
             }
         }
+        
 
         public string Delete(int id)
         {
